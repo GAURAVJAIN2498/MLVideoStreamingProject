@@ -1,0 +1,11 @@
+import cv2
+ret, photo = cap.read()
+ret
+
+cv2.imshow("my photo", photo)
+
+print ( cv2.waitKey() )
+
+cv2.destroyAllWindows()
+
+cap.release
