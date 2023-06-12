@@ -1,0 +1,51 @@
+import cv2
+import  urllib.request
+from cvzone.HandTrackingModule import HandDetector
+detector = HandDetector(maxHands=1 , detectionCon=0.8 )
+cap = cv2.VideoCapture(0)
+
+while True:
+    ret,  photo = cap.read()
+    hand = detector.findHands(photo , draw=False )
+    
+    if hand:
+        detectHand = hand[0]
+        if detectHand:
+            fingerup = detector.fingersUp(detectHand) 
+            if fingerup == [0, 1, 0, 1, 0]:
+                print("initial 2 finger")
+                for i in range(2):
+                    request_url = urllib.request.urlopen('https://a803fpmwhb.execute-api.ap-south-1.amazonaws.com/test/docker')
+                    print ( request_url.read() )
+                
+        
+                
+            elif   fingerup == [0, 1, 1, 1, 0]:
+                print("middle 3 finger up")
+                for i in range(3):
+                    request_url = urllib.request.urlopen('https://a803fpmwhb.execute-api.ap-south-1.amazonaws.com/test/docker')
+                    print ( request_url.read() )
+                
+            elif   fingerup == [0, 1, 1, 1, 1]:
+                print("middle 4 finger up")
+                for i in range(4):
+                    request_url = urllib.request.urlopen('https://a803fpmwhb.execute-api.ap-south-1.amazonaws.com/test/docker')
+                    print ( request_url.read() )
+                
+            elif   fingerup == [1, 1, 1, 1, 1]:
+                print("all finger up")
+                for i in range(5):
+                    request_url = urllib.request.urlopen('https://a803fpmwhb.execute-api.ap-south-1.amazonaws.com/test/docker')
+                    print ( request_url.read() )
+                
+                
+                
+            
+    cv2.imshow("docker", photo)
+    if cv2.waitKey(10) == 13:
+        break
+        
+        
+cv2.destroyAllWindows()
+
+cap.release()
