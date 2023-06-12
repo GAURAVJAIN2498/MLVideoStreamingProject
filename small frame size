@@ -1,0 +1,13 @@
+import cv2
+cap = cv2.VideoCapture(0)
+
+while True:
+    ret, photo = cap.read()
+    newphoto = photo[50:300, 100:400]
+    cv2.imshow("my photo", newphoto)
+    if cv2.waitKey(10) == 13:
+        break
+  
+    
+cv2.destroyAllWindows()  
+cap.release()
